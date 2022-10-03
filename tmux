@@ -50,6 +50,9 @@ bind -n S-Right next-window
  
 # Mouse mode
 setw -g mouse on
+
+# bind-key          [ copy-mode
+setw -g mode-keys vi
  
 # Set easier window split keys
 bind-key v split-window -h
