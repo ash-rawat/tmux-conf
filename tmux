@@ -82,3 +82,62 @@ bind-key -t vi-copy r rectangle-toggle 		# visual block toggle
 bind-key < command-prompt -p "send to tmux:" "run-shell 'tmux set-buffer -- \"$(xsel -o -b)\"'"
 bind-key > command-prompt -p "send to xsel:" "run-shell 'tmux show-buffer | xsel -i -b'"
 bind-key + command-prompt "delete-buffer"
+
+
+
+
+------------------------------------------------------------------
+Working tmux.conf
+--------------------------------------------------------------------
+
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-yank'
+
+
+
+# Use Alt-arrow keys to switch panes
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+
+# Theme
+
+#set -g default-terminal "screen-256color"
+#set -g @plugin 'wfxr/tmux-power'
+set -g @plugin 'wfxr/tmux-power'
+set -g @tmux_power_theme 'moon'
+set -g @tmux_power_show_web_reachable true
+set -g @tmux_power_prefix_highlight_pos 'LR'
+set -g @tmux_power_show_upload_speed true
+set -g @tmux_power_show_download_speed true
+#set -g @tmux_power_theme 'snow'
+#set -g @dracula-show-left-icon adarshr@local
+#set -g @dracula-show-fahrenheit false
+#set -g @dracula-show-location false
+
+#set -g @plugin "arcticicestudio/nord-tmux"
+
+
+
+# Easy config reload
+bind-key r source-file ~/.tmux.conf \; display-message "~/.tmux.conf reloaded."
+
+# Shift arrow to switch windows
+bind -n S-Left previous-window
+bind -n S-Right next-window
+
+# Mouse mode
+setw -g mouse on
+
+# Tmux copy mode
+setw -g mode-keys vi
+
+# synchronize all panes in a window
+# don't use control S, too easily confused
+# with navigation key sequences in tmux (show sessions)
+unbind C-S
+bind C-Y set-window-option synchronize-panes
+
+run '~/.tmux/plugins/tpm/tpm'
